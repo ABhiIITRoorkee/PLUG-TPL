@@ -2,14 +2,14 @@
 import os
 import re
 import torch
-import model_Atten_TPL
+import model_Plug_TPL.py
 import utility.dataset
 import numpy as np
 from tqdm import tqdm
 from utility.parse_args import arg_parse
 args = arg_parse()
 
-model = model_Atten_TPL.AttenTPL()
+model = model_Plug_TPL.py.AttenTPL()
 model = model.to(args.device)
 
 criterion = torch.nn.BCELoss()
@@ -22,7 +22,7 @@ optimizer = torch.optim.Adagrad(adagrad_params, lr=args.lr, weight_decay=args.we
 # optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-5)
 
 fold: str = re.findall('[0-9]', args.train_dataset)[0]
-path: str = 'model_Atten_TPL'
+path: str = 'model_Plug_TPL.py'
 
 
 def ensure_dir(ensure_path: str) -> None:
@@ -63,3 +63,4 @@ if __name__ == '__main__':
         print('load model')
     ensure_dir('./' + path)
     train()
+
