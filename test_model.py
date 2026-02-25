@@ -6,7 +6,7 @@ import re
 from typing import Dict, List
 
 import torch
-import model_Atten_TPL
+import model_Plug_TPL.py
 from utility.parse_args import arg_parse
 
 args = arg_parse()
@@ -101,7 +101,7 @@ def test_model(model_path: str, test_dataset: str, output_file: str) -> None:
     t0 = time.time()
 
     # Load model
-    model = model_Atten_TPL.AttenTPL()
+    model = model_Plug_TPL.py.AttenTPL()
     # safer load for CPU/GPU portability
     state = torch.load(model_path, map_location=args.device)
     model.load_state_dict(state)
@@ -169,7 +169,7 @@ def test_model(model_path: str, test_dataset: str, output_file: str) -> None:
 
 
 if __name__ == "__main__":
-    model_dir = "model_Atten_TPL"
+    model_dir = "model_Plug_TPL.py"
     test_dataset = args.test_dataset
 
     pattern = r"testing_(\d+)_(\d+)\.json"
@@ -186,3 +186,4 @@ if __name__ == "__main__":
     model_ckpt = os.path.join(model_dir, f"model_{fold}.pth")
 
     test_model(model_ckpt, test_dataset, output_file)
+
